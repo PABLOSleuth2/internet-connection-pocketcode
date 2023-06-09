@@ -10,7 +10,7 @@ if current and type(current.Disconnect) == "function" then
 
 if slashtorespond then
 
-    say("Chatbot loaded. Say /botin [your msg/chat] to chat with a bot")
+    say("Chatbot loaded. Say /botin [your msg/chat/commands] to chat with a bot")
 
 end
 
