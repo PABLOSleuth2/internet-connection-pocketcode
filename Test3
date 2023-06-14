@@ -11,13 +11,13 @@ if current and type(current.Disconnect) == "function" then
 if slashtorespond then
 
     say("Chatbot loaded. Say /botin [your msg/chat/commands] to chat with a bot")
-
+    wait(2)
     say("list of commands: /botin sit,spin,dance,follow,kiss,headsit,bang,pickitem/removeitem,laydown,randomnum,joke,randomfacts.")
-
+    wait(2)
     say("for example: /botin follow [PlayerUsername]")
-
+    wait(2)
     say("Rules: Don't Hack My Bot! Abusing Bot causes block.")
-
+    wait(2)
     say("Another commands: serverhop,reset.")
 
 end
