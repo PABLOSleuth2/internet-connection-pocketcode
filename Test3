@@ -54,7 +54,7 @@ getgenv().current = game.ReplicatedStorage.DefaultChatSystemChatEvents.OnMessage
 
     
 
-    if msg:sub(1, 13) == "/chatbot stop" then
+    if msg:sub(1, 13) == "/botin [Bot-Stop]" then
 
         current:Disconnect()
 
