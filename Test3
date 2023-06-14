@@ -12,6 +12,14 @@ if slashtorespond then
 
     say("Chatbot loaded. Say /botin [your msg/chat/commands] to chat with a bot")
 
+    say("list of commands: /botin sit,spin,dance,follow,kiss,headsit,bang,pickitem/removeitem,laydown,randomnum,joke,randomfacts.")
+
+    say("for example: /botin follow [PlayerUsername]")
+
+    say("Rules: Don't Hack My Bot! Abusing Bot causes block.")
+
+    say("Another commands: serverhop,reset.")
+
 end
 
 function send(conversation_msg, conversation_id)
