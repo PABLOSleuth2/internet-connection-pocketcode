@@ -14,11 +14,11 @@ if slashtorespond then
 
     wait(2)
 
-    say("list of commands: /botin sit,spin,dance,follow,kiss,headsit,bang,pickitem/removeitem")
+    say("list of commands: /chatCM sit,spin,dance,follow,kiss,headsit,bang,pickitem/removeitem")
 
     wait(2)
 
-    say("for example: /botin follow [PlayerUsername]")
+    say("for example: /chatCM follow [PlayerUsername]")
 
     wait(2)
 
@@ -62,7 +62,7 @@ getgenv().current = game.ReplicatedStorage.DefaultChatSystemChatEvents.OnMessage
 
     
 
-    if msg:sub(1, 13) == "/botin [Bot-Stop]" then
+    if msg:sub(1, 13) == "/chatCM Stop" then
 
         current:Disconnect()
 
@@ -82,7 +82,7 @@ getgenv().current = game.ReplicatedStorage.DefaultChatSystemChatEvents.OnMessage
 
     end
 
-    if (slashtorespond and msg:sub(1, 6) == "/botin" or slashtorespond == false) then
+    if (slashtorespond and msg:sub(1, 6) == "/chatCM" or slashtorespond == false) then
 
         if slashtorespond then
 
