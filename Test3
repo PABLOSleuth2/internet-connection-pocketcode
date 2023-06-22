@@ -18,7 +18,7 @@ if slashtorespond then
     wait(2)
     say("Rules: Don't Hack My Bot! Abusing Bot causes block.")
     wait(2)
-    say("Another commands: serverhop,reset.")
+    say("Another commands: serverhop,reset,frontheadsit,blind,noblind,timeofclock.")
 
 end
 
