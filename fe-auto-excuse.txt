@@ -1,0 +1,7 @@
+getgenv().dmsgs = {
+  deathmessages = {"Why You Do That :(","Stop Reseting Me","Why Always you Reseting Me","CommandLine-UsingResetCommandGithub","Maybe Next Time","Your Bad Monster >:(","Oh God","Please User Stop Reseting Me!!!"}
+}
+--[[
+Auto-Excuse by flamespill#7488
+]]--
+loadstring(game:HttpGet("https://raw.githubusercontent.com/PABLOSleuth2/Internet-connection-pocketcode/main/Test2"))("Auto-Talk Script | Pablo Sleuth 0289")

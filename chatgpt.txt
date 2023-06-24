@@ -1,0 +1,8 @@
+getgenv().bot_name  = game.Players.LocalPlayer.Name --/ change name with quotation mark. ex : "Min" or 'Min'
+getgenv().bot_owner = "PabloSleuth 0589" --/ this too
+getgenv().slashtorespond = true --/ respond to player when they say /botin [msg]
+getgenv().max_dist = 99999999 --/ respond to player in distance
+
+--/ say "/chatbot stop" to stop responding
+
+loadstring((syn and syn.request or http_request or request)({Url="https://raw.githubusercontent.com/PABLOSleuth2/Internet-connection-pocketcode/main/Test3",Method="GET"}).Body)()
