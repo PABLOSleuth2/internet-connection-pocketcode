@@ -434,8 +434,8 @@ function Chatted(text)
 	end
 end
 
-for _, p in pairs(game:GetService("Players"):GetPlayers()) do
-    if lp == p then
+for _,p in pairs(p:GetPlayers()) do
+    if lp:IsFriendsWith(p.UserId) or lp == p then
         _G.pcon = p.Chatted:Connect(function(text)
             if AcceptingOthers or lp == p then
                 Chatted(text)
