@@ -265,8 +265,6 @@ function Methods:SetScriptCreator(Name)
 end
 
 function Methods:RunScript()
-	
-	task.wait()
 
 if PASettings.Teleportation.Enabled then
     Mouse.KeyDown:Connect(function(Key)
