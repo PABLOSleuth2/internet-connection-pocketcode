@@ -9217,7 +9217,7 @@ end)
 
 addcmd('dance', {}, function(args, speaker)
 	if not r15(speaker) then
-		local dances = {"27789359", "30196114", "248263260", "45834924", "33796059", "28488254", "52155728"}
+		local dances = {"12883774708"}
 		local animation = Instance.new("Animation")
 		animation.AnimationId = "rbxassetid://" .. dances[math.random(1, #dances)]
 		animTrack = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(animation)
