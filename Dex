@@ -1,4 +1,4 @@
-CreateGui = function()
+function CreateGui()
 local NewGuiPart1 = Instance.new("ScreenGui")
 local NewGuiPart2 = Instance.new("Frame")
 local NewGuiPart3 = Instance.new("Frame")
