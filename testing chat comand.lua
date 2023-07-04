@@ -417,13 +417,11 @@ function Chatted(text)
 end
 
 for _,p in pairs(p:GetPlayers()) do
-    if lp:IsFriendsWith(p.UserId) or lp == p then
         _G.pcon = p.Chatted:Connect(function(text)
             if AcceptingOthers or lp == p then
                 Chatted(text)
             end
         end)
-    end
 end
 
 -- When players join the game and if they chat, fire the Chatted event.
