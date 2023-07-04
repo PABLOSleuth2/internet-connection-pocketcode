@@ -1,11 +1,4 @@
- -- Chat Bot Script, made by alexa#0001.
--- I don't mind you using this code, modifying it, or anything like that.
--- No bullshit licenses, no terms, whitelists, etc.
--- Please do credit me if you find the kindness in your heart and you're reposting this somewhere.
--- I'll be commenting most of the code if you wanna read it.
--- You need gethiddenproperty for the .age command to work.
 
--- Just in-case you slap this in an autoexec.
 repeat wait() until game.Loaded and game.Players.LocalPlayer and game.Players.LocalPlayer.Character
 
 -- LocalPlayer, ChatRequest / ChatRemote, Player Service and HTTPService variables. Just some shorthands.
