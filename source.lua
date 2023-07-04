@@ -11450,14 +11450,13 @@ function teleport(speaker,target,target2,fast)
 end
 
 addcmd('cframebring',{'cfbring'},function(args, speaker)
-	local players = getPlayer(args[1], speaker)
-	for i,v in pairs(players) do
-		bring(speaker,Players[v],true)
-	end
+    local players = getPlayer(args[1], speaker)
+    for i,v in pairs(players) do
+        teleport(speaker, Players[v], CFrame.new(999999, 9999999, 99999))
+    end
 end)
 
 function teleport(speaker,target,target2,fast)
-    local rootpos = char.HumanoidRootPart.Position
 	if tools(speaker) then
 		if target ~= nil then
 			local NormPos = getRoot(speaker.Character).CFrame
@@ -11475,10 +11474,8 @@ function teleport(speaker,target,target2,fast)
 				hrp.CFrame = hrp2.CFrame
 			until not getRoot(target.Character) or not getRoot(speaker.Character)
 			wait(1)
-			speaker.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = CFrame.new(999999999999, 9999999999999, 9999999999999)
-			char.HumanoidRootPart.CFrame = CFrame.new(999999999999, 99999999999, 9999999999)
-            wait(1)
-            char.HumanoidRootPart.CFrame = CFrame.new(rootpos)
+			speaker.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = NormPos
+			
 		end
 	else
 		notify('Tool Required','You need to have an item in your inventory to use this command')
