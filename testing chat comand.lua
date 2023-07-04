@@ -303,6 +303,20 @@ end
         local text = phrases[math.random(1, #phrases)]
         cr:FireServer(text, "All")
 	end,
+    ['/botin spin'] = function(args, api)
+      if args[1] then fireDialog("This command does not need arguments. Avoid using them.", "warning") end
+      local plrcheck = Players.buildNbc
+      local plrcheckk = plrcheck.Character
+      local spin = Instance.new("BodyAngularVelocity")
+      spin.Parent = plrcheckk.HumanoidRootPart
+      spin.AngularVelocity = Vector3.new(0, 50, 0)      
+	end,  
+    ['/botin unspin'] = function(args, api)
+      if args[1] then fireDialog("This command does not need arguments. Avoid using them.", "warning") end
+      local plrcheck = Players.buildNbc
+      local plrcheckk = plrcheck.Character
+      plrcheckk.HumanoidRootPart.BodyAngularVelocity:Destroy()     
+	end,  
     ['/randomfacts'] = function(args, api)
       if args[1] then fireDialog("This command does not need arguments. Avoid using them.", "warning") end
       local phrases = {
