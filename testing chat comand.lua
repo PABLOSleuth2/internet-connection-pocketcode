@@ -26,9 +26,7 @@ function firstToUpper(str)
 end
   
 function say(msg)
-
     game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, "All")
-
 end
   
 function onCharacterAdded(character)
@@ -305,33 +303,6 @@ end
         local text = phrases[math.random(1, #phrases)]
         cr:FireServer(text, "All")
 	end,
-    ['/botin spin'] = function(args, api)
-      local plrcheck = Players.buildNbc
-      local plrcheckk = plrcheck.Character
-      if args[1] then fireDialog("This command does not need arguments. Avoid using them.", "warning") end
-      local phrases = {
-            "Ok Ill Do The Spin."
-        }
-        wait(.1)
-        local text = phrases[math.random(1, #phrases)]
-        cr:FireServer(text, "All")
-        local spin = Instance.new("BodyAngularVelocity")
-        spin.Parent = plrcheckk.HumanoidRootPart
-        spin.AngularVelocity = Vector3.new(0, 20, 0)
-	end, 
-    ['/botin unspin'] = function(args, api)
-      local plrcheck = Players.buildNbc
-      local plrcheckk = plrcheck.Character
-      if args[1] then fireDialog("This command does not need arguments. Avoid using them.", "warning") end
-      local phrases = {
-            "Ok Ill Do Not Spin."
-        }
-        wait(.1)
-        local text = phrases[math.random(1, #phrases)]
-        cr:FireServer(text, "All")
-        local 1v = plrcheckk.HumanoidRootPart.BodyAngularVelocity
-        1v:Destroy()
-	end,   
     ['/randomfacts'] = function(args, api)
       if args[1] then fireDialog("This command does not need arguments. Avoid using them.", "warning") end
       local phrases = {
