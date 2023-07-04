@@ -327,6 +327,15 @@ end
         local text = phrases[math.random(1, #phrases)]
         cr:FireServer(text, "All")
 	end,      
+    ['/botin #'] = function(args, api)
+      if args[1] then fireDialog("This command does not need arguments. Avoid using them.", "warning") end
+      local phrases = {
+            "Im Sorry I Cannot Understand, Got Tag."
+        }
+        wait(.1)
+        local text = phrases[math.random(1, #phrases)]
+        cr:FireServer(text, "All")
+	end,        
     ['.age'] = function(args, api)
         if args[1] == nil then fireDialog("Missing required arguments from .age. Try .age "..lp.Name, "error"); return end
         local tar = FindPlayer(args[1])
