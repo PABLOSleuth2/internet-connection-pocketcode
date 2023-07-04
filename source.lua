@@ -17,6 +17,9 @@ end
 currentVersion = '5.9.3'
 
 Players = game:GetService("Players")
+local Players = game:GetService("Players")
+local plr = Players.LocalPlayer
+local char = plr.Character
 
 Holder = Instance.new("Frame")
 Title = Instance.new("TextLabel")
@@ -4488,6 +4491,7 @@ CMDs[#CMDs + 1] = {NAME = 'fastkill [plr] (TOOL)', DESC = 'Kills a player (less 
 CMDs[#CMDs + 1] = {NAME = 'handlekill / hkill [plr] (TOOL)', DESC = 'Kills a player using tool damage (YOU NEED A TOOL)'}
 CMDs[#CMDs + 1] = {NAME = 'bring [plr] (TOOL)', DESC = 'Brings a player (YOU NEED A TOOL)'}
 CMDs[#CMDs + 1] = {NAME = 'fastbring [plr] (TOOL)', DESC = 'Brings a player (less reliable) (YOU NEED A TOOL)'}
+CMDs[#CMDs + 1] = {NAME = 'cframebring [plr] (TOOL)', DESC = 'Brings a player (less reliable) (YOU NEED A TOOL)'}
 CMDs[#CMDs + 1] = {NAME = 'teleport / tp [plr] [plr] (TOOL)', DESC = 'Teleports a player to another player (YOU NEED A TOOL)'}
 CMDs[#CMDs + 1] = {NAME = 'fastteleport / fasttp [plr] [plr] (TOOL)', DESC = 'Teleports a player to another player (less reliable) (YOU NEED A TOOL)'}
 CMDs[#CMDs + 1] = {NAME = 'fling', DESC = 'Flings anyone you touch'}
@@ -11438,6 +11442,43 @@ function teleport(speaker,target,target2,fast)
 			until not getRoot(target.Character) or not getRoot(speaker.Character)
 			wait(1)
 			speaker.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = NormPos
+			
+		end
+	else
+		notify('Tool Required','You need to have an item in your inventory to use this command')
+	end
+end
+
+addcmd('cframebring',{'cfbring'},function(args, speaker)
+	local players = getPlayer(args[1], speaker)
+	for i,v in pairs(players) do
+		bring(speaker,Players[v],true)
+	end
+end)
+
+function teleport(speaker,target,target2,fast)
+    local rootpos = char.HumanoidRootPart.Position
+	if tools(speaker) then
+		if target ~= nil then
+			local NormPos = getRoot(speaker.Character).CFrame
+			if not fast then
+				refresh(speaker)
+				wait()
+				repeat wait() until speaker.Character ~= nil and getRoot(speaker.Character)
+				wait(0.3)
+			end
+			local hrp = getRoot(speaker.Character)
+			local hrp2 = getRoot(target2.Character)
+			attach(speaker,target)
+			repeat
+				wait()
+				hrp.CFrame = hrp2.CFrame
+			until not getRoot(target.Character) or not getRoot(speaker.Character)
+			wait(1)
+			speaker.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = CFrame.new(999999999999, 9999999999999, 9999999999999)
+			char.HumanoidRootPart.CFrame = CFrame.new(999999999999, 99999999999, 9999999999)
+            wait(1)
+            char.HumanoidRootPart.CFrame = CFrame.new(rootpos)
 		end
 	else
 		notify('Tool Required','You need to have an item in your inventory to use this command')
