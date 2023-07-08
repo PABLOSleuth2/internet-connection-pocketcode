@@ -35,22 +35,22 @@ local PASettings = {
     Animations = {
         IdleAnimation = {
             AnimationID = nil,
-            FrameSpeed = 12,
+            FrameSpeed = 5,
             TweenSpeed = 1
         },
         WalkAnimation = {
             AnimationID = nil,
-            FrameSpeed = 12,
+            FrameSpeed = 5,
             TweenSpeed = 1
         },
         JumpAnimation = {
             AnimationID = nil,
-            FrameSpeed = 12,
+            FrameSpeed = 5,
             TweenSpeed = 1
         },
         FallAnimation = {
             AnimationID = nil,
-            FrameSpeed = 12,
+            FrameSpeed = 5,
             TweenSpeed = 1
         },
         SprintAnimation = {
@@ -66,10 +66,10 @@ local PASettings = {
             OneKeyAttack = {
                --[[ Attack1 = {
                     Key = "q",
-                    AnimationID = 7142973417,
-                    FrameSpeed = math.huge,
-                    TweenSpeed = .1,
-                    AttackWalkSpeed = 2
+                    AnimationID = 9903334512,
+                    FrameSpeed = 5,
+                    TweenSpeed = 1,
+                    AttackWalkSpeed = 16
                 },
                 ]]
             }
@@ -178,7 +178,7 @@ function Methods:NewAttack(AttackName, Key, AnimationID, TweenSpeed, Speed)
     local Attack = PASettings.Animations.Attacks.OneKeyAttack[AttackName]
     Attack.Key = Key
     Attack.AnimationID = AnimationID
-    Attack.FrameSpeed = 12
+    Attack.FrameSpeed = 5
     Attack.TweenSpeed = TweenSpeed
     Attack.AttackWalkSpeed = Speed
 end
@@ -200,20 +200,26 @@ function Methods:HatFlingOnTouch(Hat)
     local Hat = Character[Hat].Handle
     Hat.Touched:Connect(function(BasePart)
         if BasePart.Parent:FindFirstChildOfClass("Humanoid") and BasePart.Parent.Name ~= Player.Name and Attacking and not Flinging then
+        local plr = Players.LocalPlayer
+        local char = plr.Character
+        local h = char.Humanoid
             Flinging = true
             local Connection = game:GetService("RunService").Heartbeat:Connect(function()
                 Root.Position = BasePart.Parent.PrimaryPart.Position
             end)
+            h.Jump = true
             task.wait(1)
             Connection:Disconnect()
             Flinging = false
+            h.Jump = true
         elseif BasePart.Parent.Parent:FindFirstAncestorOfClass("Humanoid") and BasePart.Parent.Parent.Name ~= Player.Name and Attacking and not Flinging then
+            h.Jump = true
             Flinging = true
             local Connection = game:GetService("RunService").Heartbeat:Connect(function()
-                Root.Position = BasePart.Parent.Parent.PrimaryPart.Position
             end)
             task.wait(1)
             Connection:Disconnect()
+            h.Jump = false
             Flinging = false
         end
     end)
@@ -224,20 +230,25 @@ function Methods:BodyPartFlingOnTouch(BodyPart)
     local Hat = Character[BodyPart]
     Hat.Touched:Connect(function(BasePart)
         if BasePart.Parent:FindFirstChildOfClass("Humanoid") and BasePart.Parent.Name ~= Player.Name and Attacking and not Flinging then
+        local plr = Players.LocalPlayer
+        local char = plr.Character
+        local h = char.Humanoid
+        h.Jump = true
             Flinging = true
             local Connection = game:GetService("RunService").Heartbeat:Connect(function()
-                Root.Position = BasePart.Parent.PrimaryPart.Position
             end)
             task.wait(1)
             Connection:Disconnect()
             Flinging = false
+            h.Jump = true
         elseif BasePart.Parent.Parent:FindFirstAncestorOfClass("Humanoid") and BasePart.Parent.Parent.Name ~= Player.Name and Attacking and not Flinging then
             Flinging = true
+            h.Jump = true
             local Connection = game:GetService("RunService").Heartbeat:Connect(function()
-                Root.Position = BasePart.Parent.Parent.PrimaryPart.Position
             end)
             task.wait(1)
             Connection:Disconnect()
+            h.Jump = false
             Flinging = false
         end
     end)
@@ -479,3 +490,4 @@ while task.wait() do
 end
 end
 return Methods
+
