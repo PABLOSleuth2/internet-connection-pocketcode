@@ -36,22 +36,22 @@ local PASettings = {
         IdleAnimation = {
             AnimationID = nil,
             FrameSpeed = 12,
-            TweenSpeed = 3
+            TweenSpeed = 1
         },
         WalkAnimation = {
             AnimationID = nil,
             FrameSpeed = 12,
-            TweenSpeed = 3
+            TweenSpeed = 1
         },
         JumpAnimation = {
             AnimationID = nil,
             FrameSpeed = 12,
-            TweenSpeed = 3
+            TweenSpeed = 1
         },
         FallAnimation = {
             AnimationID = nil,
             FrameSpeed = 12,
-            TweenSpeed = 3
+            TweenSpeed = 1
         },
         SprintAnimation = {
             SprintingEnabled = false,
@@ -471,6 +471,7 @@ while task.wait() do
         PlayAnimation(PASettings.Animations.WalkAnimation.AnimationID, PASettings.Animations.WalkAnimation.FrameSpeed, PASettings.Animations.WalkAnimation.TweenSpeed, "Running")
         elseif CurrentType == "Jumping" and Humanoid.Health >= 0 and not Attacking then
         PlayAnimation(PASettings.Animations.JumpAnimation.AnimationID, PASettings.Animations.JumpAnimation.FrameSpeed, PASettings.Animations.JumpAnimation.TweenSpeed, "Jumping")
+        PlayAnimation(9903334512, FrameSpeed, TweenSpeed, "Jumping")
         elseif CurrentType == "Falling" and Humanoid.Health >= 0 and not Attacking then
         PlayAnimation(PASettings.Animations.FallAnimation.AnimationID, PASettings.Animations.FallAnimation.FrameSpeed, PASettings.Animations.FallAnimation.TweenSpeed, "Falling")
  
