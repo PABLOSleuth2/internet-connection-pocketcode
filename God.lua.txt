@@ -41,7 +41,7 @@ local PASettings = {
         WalkAnimation = {
             AnimationID = nil,
             FrameSpeed = 16,
-            TweenSpeed = 2
+            TweenSpeed = 1.8
         },
         SprintAnimation = {
             SprintingEnabled = false,
@@ -53,17 +53,17 @@ local PASettings = {
         },
         JumpAnimation = {
         AnimationID = nil,
-        FrameSpeed = 30,
+        FrameSpeed = 60,
         TweenSpeed = 3
     },
     FallAnimation = {
         AnimationID = nil,
-        FrameSpeed = 30,
+        FrameSpeed = 60,
         TweenSpeed = 3
     },
     ClimbAnimation = {
         AnimationID = nil,
-        FrameSpeed = 13,
+        FrameSpeed = 60,
         TweenSpeed = 3
     },
      
@@ -143,11 +143,11 @@ function Methods:NoYield(fn)
 end
 
 function Methods:ApplyVelocityFoward(Distance)
-   FakeRoot.Velocity = FakeRoot.CFrame.LookVector.Unit * Distance * 10
+   FakeRoot.Velocity = FakeRoot.CFrame.LookVector.Unit * Distance * 25
 end
 
 function Methods:ApplyVelocityUpward(Distance)
-    FakeRoot.Velocity = Vector3.new(FakeRoot.Velocity.X, Distance / 2, FakeRoot.Velocity.Z)
+    FakeRoot.Velocity = Vector3.new(FakeRoot.Velocity.X,Distance,FakeRoot.Velocity.Z)    
 end
 
 function Methods:LookAtMouse()
