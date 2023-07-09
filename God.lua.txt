@@ -61,6 +61,11 @@ local PASettings = {
         FrameSpeed = 4,
         TweenSpeed = 0.4
     },
+    ClimbAnimation = {
+        AnimationID = nil,
+        FrameSpeed = 4,
+        TweenSpeed = 0.4
+    },
      
         Attacks = {
             OneKeyAttack = {
@@ -162,6 +167,11 @@ end
 function Methods:SetJumpAnimation(AnimationID, FrameSpeed)
     PASettings.Animations.JumpAnimation.AnimationID = AnimationID
     PASettings.Animations.JumpAnimation.TweenSpeed = FrameSpeed
+end
+
+function Methods:SetClimbAnimation(AnimationID, FrameSpeed)
+    PASettings.Animations.ClimbAnimation.AnimationID = AnimationID
+    PASettings.Animations.ClimbAnimation.TweenSpeed = FrameSpeed
 end
 
 function Methods:SetFallAnimation(AnimationID, FrameSpeed)
@@ -316,8 +326,10 @@ task.spawn(function()
             CurrentType = "Attacking"
         elseif Humanoid:GetState() == Enum.HumanoidStateType.Jumping then
             CurrentType = "Jumping"
-        elseif Humanoid:GetState() == Enum.HumanoidStateType.Falling then
+        elseif Humanoid:GetState() == Enum.HumanoidStateType.Freefall then
             CurrentType = "Falling"
+        elseif Humanoid:GetState() == Enum.HumanoidStateType.Climbing then
+            CurrentType = "Climbing"    
         elseif Sprinting and not Attacking then
             CurrentType = "Sprinting"
         else
@@ -464,29 +476,31 @@ end
 Humanoid.Jumping:Connect(function()
     CurrentType = "Jumping"
     -- Call a function to play the jump animation, for example:
-    PlayJumpAnimation()
+    PlayAnimation(PASettings.Animations.JumpAnimation.AnimationID, PASettings.Animations.JumpAnimation.FrameSpeed, PASettings.Animations.JumpAnimation.TweenSpeed, "Jumping")
 end)
 
 Humanoid.FreeFalling:Connect(function()
     CurrentType = "Fall"
     -- Call a function to play the fall animation, for example:
-    PlayFallAnimation()
+    PlayAnimation(PASettings.Animations.FallAnimation.AnimationID, PASettings.Animations.FallAnimation.FrameSpeed, PASettings.Animations.FallAnimation.TweenSpeed, "Fall")
 end)
 
 Methods:SystemMessage("PENDULUM ANIMATOR: Script Hash is "..script:GetHash())
 Methods:SystemMessage("PENDULUM ANIMATOR: Script finished loading!")
 while task.wait() do
-if (CurrentType == "Idle" or CurrentType == "Jumping") and Humanoid.Health >= 0 and not Attacking then
-    PlayAnimation(PASettings.Animations.IdleAnimation.AnimationID, PASettings.Animations.IdleAnimation.FrameSpeed, PASettings.Animations.IdleAnimation.TweenSpeed, "Idle")
-elseif CurrentType == "Sprinting" and Humanoid.Health >= 0 and Sprinting and not Attacking then
-    PlayAnimation(PASettings.Animations.SprintAnimation.AnimationID, PASettings.Animations.SprintAnimation.FrameSpeed, PASettings.Animations.SprintAnimation.TweenSpeed, "Sprinting")
-elseif CurrentType == "Running" and Humanoid.Health >= 0 and not Attacking then
-    PlayAnimation(PASettings.Animations.WalkAnimation.AnimationID, PASettings.Animations.WalkAnimation.FrameSpeed, PASettings.Animations.WalkAnimation.TweenSpeed, "Running")
-elseif CurrentType == "Jumping" and Humanoid.Health >= 0 and not Attacking then
-    PlayAnimation(PASettings.Animations.JumpAnimation.AnimationID, PASettings.Animations.JumpAnimation.FrameSpeed, PASettings.Animations.JumpAnimation.TweenSpeed, "Jumping")
-elseif CurrentType == "Fall" and Humanoid.Health >= 0 and not Attacking then
-    PlayAnimation(PASettings.Animations.FallAnimation.AnimationID, PASettings.Animations.FallAnimation.FrameSpeed, PASettings.Animations.FallAnimation.TweenSpeed, "Fall")
-end
+    if (CurrentType == "Idle" or CurrentType == "Jumping") and Humanoid.Health >= 0 and not Attacking then
+        PlayAnimation(PASettings.Animations.IdleAnimation.AnimationID, PASettings.Animations.IdleAnimation.FrameSpeed, PASettings.Animations.IdleAnimation.TweenSpeed, "Idle")
+    elseif CurrentType == "Sprinting" and Humanoid.Health >= 0 and Sprinting and not Attacking then
+        PlayAnimation(PASettings.Animations.SprintAnimation.AnimationID, PASettings.Animations.SprintAnimation.FrameSpeed, PASettings.Animations.SprintAnimation.TweenSpeed, "Sprinting")
+    elseif CurrentType == "Running" and Humanoid.Health >= 0 and not Attacking then
+        PlayAnimation(PASettings.Animations.WalkAnimation.AnimationID, PASettings.Animations.WalkAnimation.FrameSpeed, PASettings.Animations.WalkAnimation.TweenSpeed, "Running")
+    elseif CurrentType == "Jumping" and Humanoid.Health >= 0 and not Attacking then
+        PlayAnimation(PASettings.Animations.JumpAnimation.AnimationID, PASettings.Animations.JumpAnimation.FrameSpeed, PASettings.Animations.JumpAnimation.TweenSpeed, "Jumping")
+    elseif CurrentType == "Fall" and Humanoid.Health >= 0 and not Attacking then
+        PlayAnimation(PASettings.Animations.FallAnimation.AnimationID, PASettings.Animations.FallAnimation.FrameSpeed, PASettings.Animations.FallAnimation.TweenSpeed, "Fall")
+    elseif CurrentType == "Climbing" and Humanoid.Health >= 0 and not Attacking then
+        PlayAnimation(PASettings.Animations.ClimbAnimation.AnimationID, PASettings.Animations.ClimbAnimation.FrameSpeed, PASettings.Animations.ClimbAnimation.TweenSpeed, "Climbing")
+    end
 end
 end
 return Methods
