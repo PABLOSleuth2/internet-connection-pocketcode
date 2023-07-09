@@ -41,7 +41,7 @@ local PASettings = {
         WalkAnimation = {
             AnimationID = nil,
             FrameSpeed = 4,
-            TweenSpeed = 0.4
+            TweenSpeed = 1.5
         },
         SprintAnimation = {
             SprintingEnabled = false,
@@ -54,17 +54,17 @@ local PASettings = {
         JumpAnimation = {
         AnimationID = nil,
         FrameSpeed = 4,
-        TweenSpeed = 0.4
+        TweenSpeed = 5
     },
     FallAnimation = {
         AnimationID = nil,
         FrameSpeed = 4,
-        TweenSpeed = 0.4
+        TweenSpeed = 5
     },
     ClimbAnimation = {
         AnimationID = nil,
         FrameSpeed = 4,
-        TweenSpeed = 0.4
+        TweenSpeed = 3
     },
      
         Attacks = {
