@@ -14,7 +14,7 @@ getgenv().AutoReclaim = true
 getgenv().AntiSleep = true
 getgenv().EnableSpin = true
 loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/CenteredSniper/Kenzen/master/ZendeyReanimate.lua", true))()
-Root.Transparency = 0
+Root.Transparency = 1
 
 Highlight.Parent = Root
 Highlight.Adornee = Root
@@ -40,26 +40,26 @@ local PASettings = {
         },
         WalkAnimation = {
             AnimationID = nil,
-            FrameSpeed = 4,
-            TweenSpeed = 1.5
+            FrameSpeed = 8,
+            TweenSpeed = 2
         },
         SprintAnimation = {
             SprintingEnabled = false,
             Key = "52",
             SprintSpeed = nil,
             AnimationID = nil,
-            FrameSpeed = 4,
+            FrameSpeed = 6,
             TweenSpeed = 0.4
         },
         JumpAnimation = {
         AnimationID = nil,
-        FrameSpeed = 4,
-        TweenSpeed = 5
+        FrameSpeed = 15,
+        TweenSpeed = 3
     },
     FallAnimation = {
         AnimationID = nil,
-        FrameSpeed = 4,
-        TweenSpeed = 5
+        FrameSpeed = 15,
+        TweenSpeed = 3
     },
     ClimbAnimation = {
         AnimationID = nil,
