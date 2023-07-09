@@ -35,41 +35,41 @@ local PASettings = {
     Animations = {
         IdleAnimation = {
             AnimationID = nil,
-            FrameSpeed = 5,
-            TweenSpeed = 1
+            FrameSpeed = 4,
+            TweenSpeed = nil
         },
         WalkAnimation = {
             AnimationID = nil,
-            FrameSpeed = 5,
-            TweenSpeed = 1
-        },
-        JumpAnimation = {
-            AnimationID = nil,
-            FrameSpeed = 5,
-            TweenSpeed = 1
-        },
-        FallAnimation = {
-            AnimationID = nil,
-            FrameSpeed = 5,
-            TweenSpeed = 1
+            FrameSpeed = 4,
+            TweenSpeed = 0.4
         },
         SprintAnimation = {
             SprintingEnabled = false,
             Key = "52",
             SprintSpeed = nil,
             AnimationID = nil,
-            FrameSpeed = 12,
-            TweenSpeed = nil
+            FrameSpeed = 4,
+            TweenSpeed = 0.4
         },
+        JumpAnimation = {
+        AnimationID = nil,
+        FrameSpeed = 4,
+        TweenSpeed = 0.4
+    },
+    FallAnimation = {
+        AnimationID = nil,
+        FrameSpeed = 4,
+        TweenSpeed = 0.4
+    },
      
         Attacks = {
             OneKeyAttack = {
                --[[ Attack1 = {
                     Key = "q",
-                    AnimationID = 9903334512,
-                    FrameSpeed = 5,
-                    TweenSpeed = 1,
-                    AttackWalkSpeed = 16
+                    AnimationID = 7142973417,
+                    FrameSpeed = 4,
+                    TweenSpeed = .1,
+                    AttackWalkSpeed = 2
                 },
                 ]]
             }
@@ -165,8 +165,8 @@ function Methods:SetJumpAnimation(AnimationID, FrameSpeed)
 end
 
 function Methods:SetFallAnimation(AnimationID, FrameSpeed)
-    PASettings.Animations.JumpAnimation.AnimationID = AnimationID
-    PASettings.Animations.JumpAnimation.TweenSpeed = FrameSpeed
+    PASettings.Animations.FallAnimation.AnimationID = AnimationID
+    PASettings.Animations.FallAnimation.TweenSpeed = FrameSpeed
 end
 
 function Methods:SetJumpPower(Value)
@@ -178,7 +178,7 @@ function Methods:NewAttack(AttackName, Key, AnimationID, TweenSpeed, Speed)
     local Attack = PASettings.Animations.Attacks.OneKeyAttack[AttackName]
     Attack.Key = Key
     Attack.AnimationID = AnimationID
-    Attack.FrameSpeed = 5
+    Attack.FrameSpeed = 4
     Attack.TweenSpeed = TweenSpeed
     Attack.AttackWalkSpeed = Speed
 end
@@ -200,26 +200,20 @@ function Methods:HatFlingOnTouch(Hat)
     local Hat = Character[Hat].Handle
     Hat.Touched:Connect(function(BasePart)
         if BasePart.Parent:FindFirstChildOfClass("Humanoid") and BasePart.Parent.Name ~= Player.Name and Attacking and not Flinging then
-        local plr = Players.LocalPlayer
-        local char = plr.Character
-        local h = char.Humanoid
             Flinging = true
             local Connection = game:GetService("RunService").Heartbeat:Connect(function()
                 Root.Position = BasePart.Parent.PrimaryPart.Position
             end)
-            h.Jump = true
             task.wait(1)
             Connection:Disconnect()
             Flinging = false
-            h.Jump = true
         elseif BasePart.Parent.Parent:FindFirstAncestorOfClass("Humanoid") and BasePart.Parent.Parent.Name ~= Player.Name and Attacking and not Flinging then
-            h.Jump = true
             Flinging = true
             local Connection = game:GetService("RunService").Heartbeat:Connect(function()
+                Root.Position = BasePart.Parent.Parent.PrimaryPart.Position
             end)
             task.wait(1)
             Connection:Disconnect()
-            h.Jump = false
             Flinging = false
         end
     end)
@@ -230,25 +224,20 @@ function Methods:BodyPartFlingOnTouch(BodyPart)
     local Hat = Character[BodyPart]
     Hat.Touched:Connect(function(BasePart)
         if BasePart.Parent:FindFirstChildOfClass("Humanoid") and BasePart.Parent.Name ~= Player.Name and Attacking and not Flinging then
-        local plr = Players.LocalPlayer
-        local char = plr.Character
-        local h = char.Humanoid
-        h.Jump = true
             Flinging = true
             local Connection = game:GetService("RunService").Heartbeat:Connect(function()
+                Root.Position = BasePart.Parent.PrimaryPart.Position
             end)
             task.wait(1)
             Connection:Disconnect()
             Flinging = false
-            h.Jump = true
         elseif BasePart.Parent.Parent:FindFirstAncestorOfClass("Humanoid") and BasePart.Parent.Parent.Name ~= Player.Name and Attacking and not Flinging then
             Flinging = true
-            h.Jump = true
             local Connection = game:GetService("RunService").Heartbeat:Connect(function()
+                Root.Position = BasePart.Parent.Parent.PrimaryPart.Position
             end)
             task.wait(1)
             Connection:Disconnect()
-            h.Jump = false
             Flinging = false
         end
     end)
@@ -319,21 +308,23 @@ Mouse.KeyUp:Connect(function(Key)
     end
 end)
 
-task.spawn(
-    function()
-        while task.wait() do
-            if Humanoid.MoveDirection.X == 0 and not Attacking or Humanoid.MoveDirection.Z == 0 and not Attacking then -- MoveDirection is much more efficent.
-                CurrentType = "Idle"
-            elseif not Attacking and Sprinting and not Attacking then
-                CurrentType = "Sprinting"
-            elseif not Attacking and not Sprinting and not Attacking then
-                CurrentType = "Running"
-            elseif Attacking then
-                CurrentType = "Attacking"
-            end
+task.spawn(function()
+    while task.wait() do
+        if Humanoid.MoveDirection.X == 0 and Humanoid.MoveDirection.Z == 0 and not Attacking then
+            CurrentType = "Idle"
+        elseif Attacking then
+            CurrentType = "Attacking"
+        elseif Humanoid:GetState() == Enum.HumanoidStateType.Jumping then
+            CurrentType = "Jumping"
+        elseif Humanoid:GetState() == Enum.HumanoidStateType.Falling then
+            CurrentType = "Falling"
+        elseif Sprinting and not Attacking then
+            CurrentType = "Sprinting"
+        else
+            CurrentType = "Running"
         end
     end
-)
+end)
 
 local function PAError(Message)
     error("PA error: \n" .. Message)
@@ -460,7 +451,7 @@ function Methods:PlayAnimation(ID, TweenSpeed, Speed)
     Humanoid.WalkSpeed = Speed
     Attacking = true
     task.wait()
-    PlayAnimation(ID, math.huge, TweenSpeed, "Attacking")
+    PlayAnimation(ID, 4, TweenSpeed, "Attacking")
     Attacking = false
     
     if CanSprint then
@@ -470,24 +461,32 @@ function Methods:PlayAnimation(ID, TweenSpeed, Speed)
     end
 end
 
+Humanoid.Jumping:Connect(function()
+    CurrentType = "Jumping"
+    -- Call a function to play the jump animation, for example:
+    PlayJumpAnimation()
+end)
+
+Humanoid.FreeFalling:Connect(function()
+    CurrentType = "Fall"
+    -- Call a function to play the fall animation, for example:
+    PlayFallAnimation()
+end)
 
 Methods:SystemMessage("PENDULUM ANIMATOR: Script Hash is "..script:GetHash())
 Methods:SystemMessage("PENDULUM ANIMATOR: Script finished loading!")
 while task.wait() do
-    if CurrentType == "Idle" and Humanoid.Health >= 0 and not Attacking then
-        PlayAnimation(PASettings.Animations.IdleAnimation.AnimationID, PASettings.Animations.IdleAnimation.FrameSpeed, PASettings.Animations.IdleAnimation.TweenSpeed, "Idle")
-    elseif CurrentType == "Sprinting" and Humanoid.Health >= 0 and Sprinting and not Attacking then
-        PlayAnimation(PASettings.Animations.SprintAnimation.AnimationID, PASettings.Animations.SprintAnimation.FrameSpeed, PASettings.Animations.SprintAnimation.TweenSpeed, "Sprinting")
-    elseif CurrentType == "Running" and Humanoid.Health >= 0 and not Attacking then
-        PlayAnimation(PASettings.Animations.WalkAnimation.AnimationID, PASettings.Animations.WalkAnimation.FrameSpeed, PASettings.Animations.WalkAnimation.TweenSpeed, "Running")
-        elseif CurrentType == "Jumping" and Humanoid.Health >= 0 and not Attacking then
-        PlayAnimation(PASettings.Animations.JumpAnimation.AnimationID, PASettings.Animations.JumpAnimation.FrameSpeed, PASettings.Animations.JumpAnimation.TweenSpeed, "Jumping")
-        PlayAnimation(9903334512, FrameSpeed, TweenSpeed, "Jumping")
-        elseif CurrentType == "Falling" and Humanoid.Health >= 0 and not Attacking then
-        PlayAnimation(PASettings.Animations.FallAnimation.AnimationID, PASettings.Animations.FallAnimation.FrameSpeed, PASettings.Animations.FallAnimation.TweenSpeed, "Falling")
- 
-    end
+if (CurrentType == "Idle" or CurrentType == "Jumping") and Humanoid.Health >= 0 and not Attacking then
+    PlayAnimation(PASettings.Animations.IdleAnimation.AnimationID, PASettings.Animations.IdleAnimation.FrameSpeed, PASettings.Animations.IdleAnimation.TweenSpeed, "Idle")
+elseif CurrentType == "Sprinting" and Humanoid.Health >= 0 and Sprinting and not Attacking then
+    PlayAnimation(PASettings.Animations.SprintAnimation.AnimationID, PASettings.Animations.SprintAnimation.FrameSpeed, PASettings.Animations.SprintAnimation.TweenSpeed, "Sprinting")
+elseif CurrentType == "Running" and Humanoid.Health >= 0 and not Attacking then
+    PlayAnimation(PASettings.Animations.WalkAnimation.AnimationID, PASettings.Animations.WalkAnimation.FrameSpeed, PASettings.Animations.WalkAnimation.TweenSpeed, "Running")
+elseif CurrentType == "Jumping" and Humanoid.Health >= 0 and not Attacking then
+    PlayAnimation(PASettings.Animations.JumpAnimation.AnimationID, PASettings.Animations.JumpAnimation.FrameSpeed, PASettings.Animations.JumpAnimation.TweenSpeed, "Jumping")
+elseif CurrentType == "Fall" and Humanoid.Health >= 0 and not Attacking then
+    PlayAnimation(PASettings.Animations.FallAnimation.AnimationID, PASettings.Animations.FallAnimation.FrameSpeed, PASettings.Animations.FallAnimation.TweenSpeed, "Fall")
+end
 end
 end
 return Methods
-
