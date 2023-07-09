@@ -142,6 +142,14 @@ function Methods:NoYield(fn)
     task.spawn(fn)   
 end
 
+function Methods:ApplyVelocityFoward(Distance)
+   FakeRoot.Velocity = FakeRoot.CFrame.LookVector.Unit * Distance * 10
+end
+
+function Methods:ApplyVelocityUpward(Distance)
+    FakeRoot.Velocity = Vector3.new(FakeRoot.Velocity.X, Distance / 2, FakeRoot.Velocity.Z)
+end
+
 function Methods:LookAtMouse()
 	Character.HumanoidRootPart.CFrame = CFrame.lookAt(Character.HumanoidRootPart.Position, Vector3.new(Mouse.Hit.p.X, Character.HumanoidRootPart.Position.Y, Mouse.Hit.p.Z))
 end
