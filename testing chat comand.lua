@@ -89,7 +89,6 @@ local APILinks = {
 	['/botin randomfact'] = "https://uselessfacts.jsph.pl/random.json",
 	['/botin joke'] = "https://official-joke-api.appspot.com/random_joke",  
 	['.verse'] = "https://quotes.rest/bible/verse.json"
-	['/botin time'] = "https://pablosleuth2.github.io/Time/"  
 }
 
 -- A simple FindPlayer function which supports partial names.
@@ -179,7 +178,7 @@ local CommandFunctions = {
           else
           print("The Player Already Sitting")
         end
-	end,
+	end,  
   ['/botin laydown'] = function(args, api)
         if args[1] then fireDialog("This command does not need arguments. Avoid using them.", "warning") end
         local plrcheck = Players.buildNbc
@@ -459,7 +458,7 @@ _G.allcon = p.PlayerAdded:Connect(function(plr)
 end)
 
 -- Display a 'loaded' message.
-fireDialog("Chat bot loaded", "dialog")
+fireDialog("Chat bot loaded. Made by alexa#0001.", "dialog")
           
 
 CommandFunctions['.cmds']({nil})
