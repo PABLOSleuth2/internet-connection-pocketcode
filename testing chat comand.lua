@@ -179,27 +179,7 @@ local CommandFunctions = {
           else
           print("The Player Already Sitting")
         end
-	end,  
-  ['/botin follow'] = function(args, api)
-        if args[1] then fireDialog("This command does not need arguments. Avoid using them.", "warning") end
-        local text = "Im Sorry Try Typing: /botin follow [Actual Username] Not Display Name"
-        cr:FireServer(text, "All")
-	end,    
-  ['/botin follow me'] = function(args, api)
-        if args[1] then fireDialog("This command does not need arguments. Avoid using them.", "warning") end
-        local text = "Im Sorry Try Typing: /botin follow [Actual Username] Not Display Name"
-        cr:FireServer(text, "All")
-	end,      
-  ['/botin kiss'] = function(args, api)
-        if args[1] then fireDialog("This command does not need arguments. Avoid using them.", "warning") end
-        local text = "Im Sorry Try Typing: /botin kiss [Actual Username] Not Display Name"
-        cr:FireServer(text, "All")
 	end,
-  ['/botin kiss me'] = function(args, api)
-        if args[1] then fireDialog("This command does not need arguments. Avoid using them.", "warning") end
-        local text = "Im Sorry Try Typing: /botin kiss [Actual Username] Not Display Name"
-        cr:FireServer(text, "All")
-	end,      
   ['/botin laydown'] = function(args, api)
         if args[1] then fireDialog("This command does not need arguments. Avoid using them.", "warning") end
         local plrcheck = Players.buildNbc
