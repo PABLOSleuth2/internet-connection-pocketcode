@@ -4251,6 +4251,7 @@ end
 
 CMDs = {}
 CMDs[#CMDs + 1] = {NAME = 'discord / support / help', DESC = 'Invite to the Infinite Yield support server.'}
+CMDs[#CMDs + 1] = {NAME = 'chattranslator / chattrans', DESC = 'Google Translator, type >sp,ko,ru,po and more. to pick languages'}
 CMDs[#CMDs + 1] = {NAME = 'console', DESC = 'Loads old Roblox console'}
 CMDs[#CMDs + 1] = {NAME = 'dexmobile / dexmob', DESC = 'Opens DEX For Mobiles!'}
 CMDs[#CMDs + 1] = {NAME = 'remotespy / rspy', DESC = 'Opens Simple Spy V3'}
@@ -9963,7 +9964,12 @@ end)
 
 addcmd('dexmobile', {'dexmob'}, function(args, speaker)
     notify('Loading', 'Hold on a sec')
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/PABLOSleuth2/Internet-connection-pocketcode/main/Dex'))()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/PABLOSleuth2/Scripts1/main/RobloxScripts/TEST/Dex'))()
+end)
+
+addcmd('chattranslator',{'chattrans'},function(args, speaker)
+    notify('Loading', 'Hold on a sec')
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/PABLOSleuth2/internet-connection-pocketcode/main/translator.txt'))()
 end)
 
 addcmd('remotespy',{'rspy'},function(args, speaker)
